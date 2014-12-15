@@ -62,16 +62,33 @@ Si ce total ENERGIE + FORCE est supérieur à la FORCE de ton ennemi tu infliges
 Si ce total est inférieur à la FORCE de ton ennemi, c'est lui qui t'infliges des dégats.
 Si ta VIE descend à 0, tu meurs et ton aventure prends fin.
 """
+"""
+"""
+"""
+"""
+
+# import sys
+
+def intro():
+    print """
+    ***************
+    *             *
+    *  SACRIFICE  *
+    *             *
+    ***************
+    
+    Un jeu expérimental de Damien Casoni (fieuuuh !)
+    \n
+    """
  
 def continuer():
-    raw_input("Appuie ENTREE pour continuer")
- 
-  
+    raw_input("\nAppuie ENTREE pour continuer")
+   
 def rencontre():
     """
     Affiche un ennemi et ses caracs
     """
-    print "Attention %s ! Un %s se jette sur toi !" % (heros["nom"], ennemi["nom"])
+    print "\nAttention %s ! Un %s se jette sur toi !" % (heros["nom"], ennemi["nom"])
     
 def caracs_heros():
     """
@@ -112,6 +129,8 @@ def combat():
             if attaque >= ennemi["force"]:
                 print "\nTu infliges %s de dégats à %s" % (heros["degats"], ennemi["nom"])
                 ennemi["vie"] -= heros["degats"]
+                victoire()
+                continuer()
                 print caracs_heros()
                 print caracs_ennemi()
                 # print "La vie de %s est maintenant de %s" % (ennemi["nom"], ennemi["vie"])
@@ -121,6 +140,7 @@ def combat():
                 print "\n%s t'infliges %s de dégats! Aïe !" % (ennemi["nom"], ennemi["degats"])
                 heros["vie"] -= ennemi["degats"]
                 gameover()
+                continuer()
                 print caracs_heros()
                 print caracs_ennemi()
                 combat()
@@ -135,39 +155,55 @@ def combat():
         # combat()
  
 
-heros = {
-    "nom" : "Arthur",
-    "vie" : 10,
-    "force" : 5,
-    "energie" : 10,
-    "degats" : 2,
-    }
- 
-ennemi = {
-    "nom" : "Goblin",
-    "vie" : 10,
-    "force" : 10,
-    "degats" : 5,
-    }
+
     
+def victoire():
+    if ennemi["vie"] <= 0:
+        print "Tu as éclaté %s !!!" % ennemi["nom"]
+    else:
+        None 
     
 def gameover():
     if heros["vie"] > 0:
         print "Mais tu es toujours vivant."
     else:
-        print "Tu es mort... GAME OVER !"
-        exit
+        print """
         
- 
+        +++++++++++++++++++++++++++++++
+        +                             +
+        +  Tu es mort... GAME OVER !  +
+        +                             +
+        +++++++++++++++++++++++++++++++
+        """
+        jeu()   
 
-rencontre()
+
+def jeu():
+    intro()
+    continuer()
+    rencontre()
+    continuer()
+    caracs_heros()
+    caracs_ennemi()
+    continuer()
+    combat()
+    
+heros = {
+    "nom" : "Arthur",
+    "vie" : 10,
+    "force" : 50,
+    "energie" : 10,
+    "degats" : 20,
+    }
  
-continuer()
  
-caracs_heros()
- 
-caracs_ennemi()
- 
-continuer()
- 
-combat()
+ennemi = {
+    "nom" : "Goblin",
+    "vie" : 10,
+    "force" : 1,
+    "degats" : 5,
+    }
+    
+jeu()        
+
+        
