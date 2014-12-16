@@ -41,13 +41,13 @@ Si ta VIE descend à 0, tu meurs et ton aventure prends fin.
 """
 """
 """
-
+    
 import sys
 
 def start():
-"""
-Menu de départ du jeu
-"""
+    """
+    Menu de départ du jeu
+    """
     print """
 ***************
 *             *
