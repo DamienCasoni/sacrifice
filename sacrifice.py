@@ -1,16 +1,6 @@
  # -*- coding: utf-8 -*-
  
 """
-Spend one week on creating the most interesting interactive fiction game possible.
-Use:
- * lists
- * functions
- * modules (check ex13.py)
- * as many of new pieces of Python you can
-  
-Draw a map of your game on paper. Create the rooms, monsters, traps, etc.
- 
-The best way to work on a software:
  
 1. Write a to-do list for your program.
 2. Pick the easiest thing from your list.
@@ -25,26 +15,11 @@ The best way to work on a software:
 MY TO DO LIST :
  
 ======================
- 
-Un système de combat
-VIE :
-FORCE :
-ENERGIE :
-DEGATS :
- 
-Points d'énergie à sacrifier :
- 
-FORCE (x) + ENERGIE SACRIFIEE (y) = z
- 
-Si z >= force_ennemi
-    alors - DEGATS à VIE ennemi
-else:
-    - DEGATS ennemi à VIE héros
-     
-Si vie hero = <= 0
-    mort
- 
-Ennemis "statiques" (points fixes) pour commencer
+
+> faire FORCE en D3 + X
+> créer ennemi aléatoire
+> créer un score de points à chaque victoire
+
  
 """
  
@@ -67,9 +42,12 @@ Si ta VIE descend à 0, tu meurs et ton aventure prends fin.
 """
 """
 
-# import sys
+import sys
 
-def intro():
+def start():
+"""
+Menu de départ du jeu
+"""
     print """
 ***************
 *             *
@@ -84,11 +62,24 @@ de Damien Casoni (fieuuuh !)
  
 def continuer():
     raw_input("\nAppuie ENTREE pour continuer")
-   
+	
+def creer_ennemi():
+    ennemi["nom"] = "Goblin"
+    ennemi["vie"] = 10
+    ennemi["force"] = 1
+    ennemi["degats"] = 5
+    
+def supprimer_ennemi():
+    ennemi["nom"] = ""
+    ennemi["vie"] = 0
+    ennemi["force"] = 0
+    ennemi["degats"] = 0
+          
 def rencontre():
     """
-    Affiche un ennemi et ses caracs
+    Créé un ennemi et ses caracs
     """
+    creer_ennemi()
     print "\nAttention %s ! Un %s se jette sur toi !" % (heros["nom"], ennemi["nom"])
     
 def caracs_heros():
@@ -102,7 +93,6 @@ def caracs_heros():
     print "|  DEGATS :", heros["degats"],
     print "|  ENERGIE :", heros["energie"]
   
-
      
 def caracs_ennemi():
     print "\n%s : " % ennemi["nom"]
@@ -151,7 +141,7 @@ def combat():
             combat()        
          
     except ValueError:
-        print "Interruption volontaire du créateur"     
+		sys.exit("Interrution User")
         # print "Indique en chiffre combien de points d'ENERGIE tu veux sacrifier, tu peux mettre 0 si tu veux."
         # combat()
  
@@ -161,6 +151,7 @@ def combat():
 def victoire():
     if ennemi["vie"] <= 0:
         print "Tu as éclaté %s !!!" % ennemi["nom"]
+        rencontre()
     else:
         None 
     
@@ -180,7 +171,7 @@ def gameover():
 
 
 def jeu():
-    intro()
+    start()
     continuer()
     rencontre()
     continuer()
@@ -197,12 +188,7 @@ heros = {
     }
  
  
-ennemi = {
-    "nom" : "Goblin",
-    "vie" : 10,
-    "force" : 1,
-    "degats" : 5,
-    }
+ennemi = {}
     
 jeu()        
 
