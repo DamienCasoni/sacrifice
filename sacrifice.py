@@ -24,8 +24,8 @@ def continuer():
 def creer_ennemi():
     ennemi["nom"] = "Goblin"
     ennemi["vie"] = 5
-    ennemi["force"] = d3 
-    ennemi["degats"] = d3
+    ennemi["force"] = d(3)
+    ennemi["degats"] = d(3)
 
 
 def supprimer_ennemi():
@@ -37,9 +37,9 @@ def supprimer_ennemi():
 def creer_heros():
     heros["nom"] = "Arthur"
     heros["vie"] = 10
-    heros["force"] = d3
+    heros["force"] = d(6)
     heros["energie"] = 10
-    heros["degats"] = d3
+    heros["degats"] = d(6)
 
 def supprimer_heros():
     heros["nom"] = ""
@@ -76,7 +76,10 @@ def caracs_ennemi():
 
 
 # jeter les dés
-d3 = range(1, 4)
+def d(x):
+    resultat = []
+    resultat = range(1, int(x + 1)) 
+    return resultat
 
 def test_sacrifice():
     """ 
@@ -108,6 +111,7 @@ def combat(boost):
         # on créé la force de l'ennemi
         force_ennemi_reelle = int(random.choice(ennemi["force"]))        
         print "%s déploie une FORCE de %s !" % (ennemi["nom"], force_ennemi_reelle)
+
         # on enlève l'énergie sacrifiée à l'énergie du héros
         heros["energie"] -= boost
              
@@ -119,7 +123,6 @@ def combat(boost):
             continuer()
             print caracs_heros()
             print caracs_ennemi()
-            # print "La vie de %s est maintenant de %s" % (ennemi["nom"], ennemi["vie"])
             test_sacrifice()
         else:
             degats_ennemi_reel = int(random.choice(ennemi["degats"]))
@@ -147,7 +150,7 @@ def combat(boost):
 # victoire et game over :    
 def victoire():
     if ennemi["vie"] <= 0:
-        print "!!!!!!!!!\nTu as éclaté %s !!!!!!!!!" % ennemi["nom"]
+        print "!!!!!!!!!\nTu as éclaté %s\n!!!!!!!!!" % ennemi["nom"]
         rencontre()
     else:
         None 
