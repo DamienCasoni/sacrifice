@@ -39,7 +39,7 @@ def creer_heros():
     heros["vie"] = 10
     heros["force"] = d(6)
     heros["energie"] = 10
-    heros["degats"] = d(6)
+    heros["degats"] = d(4)
 
 def supprimer_heros():
     heros["nom"] = ""
@@ -94,9 +94,9 @@ def test_sacrifice():
         combat(sacrifice)        
          
     except ValueError:
-		sys.exit("Interrution User")
-        # print "Indique en chiffre combien de points d'ENERGIE tu veux sacrifier, tu peux mettre 0 si tu veux."
-        # sacrifice ()
+		# sys.exit("Interrution User")
+        print "Indique en chiffre combien de points d'ENERGIE tu veux sacrifier, tu peux mettre 0 si tu veux."
+        test_sacrifice ()
  
 
 def combat(boost): 
