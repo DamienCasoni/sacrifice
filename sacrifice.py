@@ -183,6 +183,4 @@ def jeu():
 ennemi = {}
 heros = {}
     
-jeu()        
-
-        
+jeu()
