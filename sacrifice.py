@@ -23,7 +23,7 @@ def continuer():
     	
 def creer_ennemi():
     ennemi["nom"] = "Goblin"
-    ennemi["vie"] = 10
+    ennemi["vie"] = 5
     ennemi["force"] = d3 
     ennemi["degats"] = d3
 
@@ -34,6 +34,19 @@ def supprimer_ennemi():
     ennemi["force"] = 0
     ennemi["degats"] = 0
 
+def creer_heros():
+    heros["nom"] = "Arthur"
+    heros["vie"] = 10
+    heros["force"] = d3
+    heros["energie"] = 10
+    heros["degats"] = d3
+
+def supprimer_heros():
+    heros["nom"] = ""
+    heros["vie"] = 0
+    heros["force"] = 0
+    heros["energie"] = 0
+    heros["degats"] = 0
           
 def rencontre():
     """
@@ -89,12 +102,16 @@ def combat(boost):
 
         force_reelle = int(random.choice(heros["force"]))
         attaque = force_reelle + boost
-        print "\n  FORCE : ", force_reelle, "\n+ SACRIFICE : ", boost,
-        print "\n= ATTAQUE : ", attaque
+        print "\nFORCE :", force_reelle, "+ SACRIFICE :", boost,
+        print "\n= ATTAQUE :", attaque
+        
+        # on créé la force de l'ennemi
+        force_ennemi_reelle = int(random.choice(ennemi["force"]))        
+        print "%s déploie une FORCE de %s !" % (ennemi["nom"], force_ennemi_reelle)
         # on enlève l'énergie sacrifiée à l'énergie du héros
         heros["energie"] -= boost
              
-        if attaque >= ennemi["force"]:
+        if attaque >= force_ennemi_reelle:
             degats_reel = int(random.choice(heros["degats"]))
             print "\nTu infliges %s de dégats à %s" % (degats_reel, ennemi["nom"])
             ennemi["vie"] -= degats_reel
@@ -103,7 +120,7 @@ def combat(boost):
             print caracs_heros()
             print caracs_ennemi()
             # print "La vie de %s est maintenant de %s" % (ennemi["nom"], ennemi["vie"])
-            boost()    
+            test_sacrifice()
         else:
             degats_ennemi_reel = int(random.choice(ennemi["degats"]))
             print "\n%s t'infliges %s de dégats! Aïe !" % (ennemi["nom"], degats_ennemi_reel)
@@ -115,14 +132,22 @@ def combat(boost):
             test_sacrifice()
          
     else:
-        print "\nPas assez d'énergie ! Recommence !"
+        print """
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                                    !
+! Pas assez d'énergie ! Recommence ! !
+!                                    !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                                
+                """
+        caracs_heros()
+        caracs_ennemi()
         test_sacrifice()
 
 
 # victoire et game over :    
 def victoire():
     if ennemi["vie"] <= 0:
-        print "Tu as éclaté %s !!!" % ennemi["nom"]
+        print "!!!!!!!!!\nTu as éclaté %s !!!!!!!!!" % ennemi["nom"]
         rencontre()
     else:
         None 
@@ -145,6 +170,8 @@ def gameover():
 # le jeu commence ici
 
 def jeu():
+    supprimer_heros()
+    creer_heros()
     start()
     continuer()
     rencontre()
@@ -153,15 +180,8 @@ def jeu():
     caracs_ennemi()
     test_sacrifice()
 
-heros = {
-    "nom" : "Arthur",
-    "vie" : 10,
-    "force" : d3,
-    "energie" : 10,
-    "degats" : d3,
-    }
-
 ennemi = {}
+heros = {}
     
 jeu()        
 
