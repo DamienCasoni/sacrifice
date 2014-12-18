@@ -65,13 +65,7 @@ def caracs_ennemi():
 # jeter les dés
 d3 = range(1, 4)
 
-def d(x):
-    dx = range.d[1:x]
-    resultat = int(random.choice(dx))
-    dx = []
-
-
-def sacrifice():
+def test_sacrifice():
     """ 
     User peut sacrifier de l'énergie, il faut vérifier
     que ce soit bien en int
@@ -89,36 +83,40 @@ def sacrifice():
         # sacrifice ()
  
 
-def combat(sacrifice): 
+def combat(boost): 
 
-    if int(sacrifice) <= heros["energie"]:
-        print "\n  FORCE : ", heros["force"], "\n+ SACRIFICE : ", sacrifice,
-        attaque = int(random.choice(heros["force"])) + sacrifice
+    if int(boost) <= heros["energie"]:
+
+        force_reelle = int(random.choice(heros["force"]))
+        attaque = force_reelle + boost
+        print "\n  FORCE : ", force_reelle, "\n+ SACRIFICE : ", boost,
         print "\n= ATTAQUE : ", attaque
         # on enlève l'énergie sacrifiée à l'énergie du héros
-        heros["energie"] -= sacrifice
+        heros["energie"] -= boost
              
         if attaque >= ennemi["force"]:
-            print "\nTu infliges %s de dégats à %s" % (heros["degats"], ennemi["nom"])
-            ennemi["vie"] -= heros["degats"]
+            degats_reel = int(random.choice(heros["degats"]))
+            print "\nTu infliges %s de dégats à %s" % (degats_reel, ennemi["nom"])
+            ennemi["vie"] -= degats_reel
             victoire()
             continuer()
             print caracs_heros()
             print caracs_ennemi()
             # print "La vie de %s est maintenant de %s" % (ennemi["nom"], ennemi["vie"])
-            sacrifice()    
+            boost()    
         else:
-            print "\n%s t'infliges %s de dégats! Aïe !" % (ennemi["nom"], ennemi["degats"])
-            heros["vie"] -= ennemi["degats"]
+            degats_ennemi_reel = int(random.choice(ennemi["degats"]))
+            print "\n%s t'infliges %s de dégats! Aïe !" % (ennemi["nom"], degats_ennemi_reel)
+            heros["vie"] -= degats_ennemi_reel
             gameover()
             continuer()
             print caracs_heros()
             print caracs_ennemi()
-            sacrifice()
+            test_sacrifice()
          
     else:
         print "\nPas assez d'énergie ! Recommence !"
-        sacrifice()        
+        test_sacrifice()
 
 
 # victoire et game over :    
@@ -153,7 +151,7 @@ def jeu():
     continuer()
     caracs_heros()
     caracs_ennemi()
-    sacrifice()
+    test_sacrifice()
 
 heros = {
     "nom" : "Arthur",
